@@ -35,18 +35,33 @@ def read_tsv_file():
       cities.append(city)
   return cities
 
+def convert_tsv_city_to_output_city(city):
+  c = {}
+  c["city"] = city["name"]
+  c["state"] = city["admin1 code"]
+  c["country"] = city["country code"]
+  c["alternate_names"] = city["alternate_names"]
+  c["latitude"] = city["latitude"]
+  c["longitude"] = city["longitude"]
+  return c
+
 @app.route("/cities/<path:city>", methods=["GET"])
-def hello_world(city):
+def city_search(city):
   cities = read_tsv_file()
   found_cities = list(filter(lambda c: c["name"] == city, cities))
   cityJSON = []
   for found_city in found_cities:
-    c = {}
-    c["city"] = found_city["name"]
-    c["state"] = found_city["admin1 code"]
-    c["country"] = found_city["country code"]
-    c["alternate_names"] = found_city["alternate_names"]
-    c["latitude"] = found_city["latitude"]
-    c["longitude"] = found_city["longitude"]
+    c = convert_tsv_city_to_output_city(found_city)
+    cityJSON.append(c)
+  return jsonify(cityJSON)
+
+@app.route("/cities", methods=["GET"])
+def city_like_search():
+  cities = read_tsv_file()
+  city = request.args["like"]
+  found_cities = list(filter(lambda c: city in c["name"], cities))
+  cityJSON = []
+  for found_city in found_cities:
+    c = convert_tsv_city_to_output_city(found_city)
     cityJSON.append(c)
   return jsonify(cityJSON)
