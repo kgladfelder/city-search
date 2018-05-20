@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export FLASK_APP=./city-search/index.py
+export FLASK_APP=./city-search-api/index.py
 
 #Windows sourcing.
 source $(py -m pipenv --venv)/Scripts/activate
