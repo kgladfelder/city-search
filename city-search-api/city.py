@@ -13,7 +13,10 @@ class City(object):
 
     def __init__(self, city, state, country, alternate_names, latitude, longitude, score):
         self.city = city
-        self.state = state
+        if country == "US":
+            self.state = state
+        else:
+            self.state = ""
         self.country = country
         self.alternate_names = alternate_names
         self.latitude = float(latitude)
@@ -22,7 +25,7 @@ class City(object):
 
     def serialize(self):
         return {
-            "city": self.city, 
+            "city": self.city,
             "state": self.state,
             "country": self.country,
             "alternate_names": self.alternate_names,

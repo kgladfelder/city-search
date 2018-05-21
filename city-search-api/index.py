@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import numpy as np
 import math
 from .city import City
@@ -6,7 +7,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__, static_url_path='')
-
+CORS(app)
 
 def is_float(value):
     try:
@@ -123,6 +124,13 @@ def city_search(city):
 
     return jsonify(json_data)
 
+@app.route("/", methods=["GET"])
+def get_city_names_list():
+  cities = read_tsv_file()
+  names = []
+  for city in cities:
+    names.append(city["name"])
+  return jsonify(names)
 
 @app.route("/cities", methods=["GET"])
 def city_like_search():
