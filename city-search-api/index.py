@@ -114,7 +114,14 @@ def city_search(city):
         found_city["score"] = 1.0
         c = convert_tsv_city_to_output_city(found_city)
         city_convert.append(c)
-    return jsonify(city_convert)
+    json_data = []
+
+    loop_count = min([25, len(city_convert)])
+
+    for x in range(0, loop_count):
+        json_data.append(city_convert[x].serialize())
+
+    return jsonify(json_data)
 
 
 @app.route("/cities", methods=["GET"])
