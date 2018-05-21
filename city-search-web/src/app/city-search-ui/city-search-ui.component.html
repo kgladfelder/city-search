@@ -2,11 +2,8 @@
   <div class="hero-body">
     <div class="container">
       <label>Search Cities: </label><input (input)="getSearchCities($event.target.value)" [value]="searchCity">
-      <div *ngFor="let city of cities">
-        <h4>{{city.city}}, {{city.state}} {{city.country}}</h4>
-        <p>{{city.latitude}}</p>
-        <p>{{city.longitude}}</p>
-      </div>
+      <hr />
+      <div #gmap style="width:100%;height:600px"></div>
     </div>
   </div>
 </section>
