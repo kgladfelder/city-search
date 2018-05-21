@@ -1,10 +1,11 @@
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "cities-search"
+name = "pypi"
 
 [packages]
 flask = "*"
+numpy = "*"
 
 [dev-packages]
 
